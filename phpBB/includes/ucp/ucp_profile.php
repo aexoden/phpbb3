@@ -271,6 +271,24 @@ class ucp_profile
 
 				$cp_data = $cp_error = array();
 
+				// Check if the custom title is enabled.
+				$custom_title_enabled = false;
+				if ($auth->acl_get('u_title_edit'))
+				{
+					if ($auth->acl_get('u_title_ignore_reqs'))
+					{
+						$custom_title_enabled = true;
+					}
+					else
+					{
+						$registered_seconds = time() - $user->data['user_regdate'];
+						if (($registered_seconds >= $config['custom_title_days'] * 86400) && ($user->data['user_posts'] >= $config['custom_title_posts']))
+						{
+							$custom_title_enabled = true;
+						}
+					}
+				}
+
 				$data = array(
 					'icq'			=> request_var('icq', $user->data['user_icq']),
 					'aim'			=> request_var('aim', $user->data['user_aim']),
@@ -300,6 +318,11 @@ class ucp_profile
 
 				add_form_key('ucp_profile_info');
 
+				if ($custom_title_enabled)
+				{
+					$data['custom_title'] = utf8_normalize_nfc(request_var('custom_title', $user->data['user_custom_title'], true));
+				}
+
 				if ($submit)
 				{
 					$validate_array = array(
@@ -327,6 +350,13 @@ class ucp_profile
 							'bday_month'	=> array('num', true, 1, 12),
 							'bday_year'		=> array('num', true, 1901, gmdate('Y', time()) + 50),
 							'user_birthday' => array('date', true),
+						));
+					}
+
+					if ($custom_title_enabled)
+					{
+						$validate_array = array_merge($validate_array, array(
+							'custom_title'	=> array('string', true, 2, $config['custom_title_maxlength']),
 						));
 					}
 
@@ -372,6 +402,11 @@ class ucp_profile
 						if ($config['allow_birthdays'])
 						{
 							$sql_ary['user_birthday'] = $data['user_birthday'];
+						}
+
+						if ($custom_title_enabled)
+						{
+							$sql_ary['user_custom_title'] = $data['custom_title'];
 						}
 
 						$sql = 'UPDATE ' . USERS_TABLE . '
@@ -422,6 +457,32 @@ class ucp_profile
 						'S_BIRTHDAY_MONTH_OPTIONS'	=> $s_birthday_month_options,
 						'S_BIRTHDAY_YEAR_OPTIONS'	=> $s_birthday_year_options,
 						'S_BIRTHDAYS_ENABLED'		=> true,
+					));
+				}
+
+				if ($custom_title_enabled)
+				{
+					switch ($config['custom_title_mode'])
+					{
+						case CUSTOM_TITLE_MODE_INDEPENDENT:
+							$custom_title_explain = $user->lang['CUSTOM_TITLE_EXPLAIN_INDEPENDENT'];
+							break;
+						case CUSTOM_TITLE_MODE_REPLACE_RANK:
+							$custom_title_explain = $user->lang['CUSTOM_TITLE_EXPLAIN_REPLACE_RANK'];
+							break;
+						case CUSTOM_TITLE_MODE_REPLACE_BOTH:
+							$custom_title_explain = $user->lang['CUSTOM_TITLE_EXPLAIN_REPLACE_BOTH'];
+							break;
+						default:
+							break;
+					}
+
+					$template->assign_vars(array(
+						'CUSTOM_TITLE'				=> $data['custom_title'],
+						'CUSTOM_TITLE_MAXLENGTH'	=> $config['custom_title_maxlength'],
+						'S_CUSTOM_TITLE_ENABLED'	=> true,
+
+						'L_CUSTOM_TITLE_EXPLAIN'	=> sprintf($user->lang['CUSTOM_TITLE_EXPLAIN'], $custom_title_explain, $config['custom_title_maxlength']),
 					));
 				}
 

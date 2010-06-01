@@ -1071,6 +1071,7 @@ while ($row = $db->sql_fetchrow($result))
 				'rank_title'		=> '',
 				'rank_image'		=> '',
 				'rank_image_src'	=> '',
+				'custom_title'		=> '',
 				'sig'				=> '',
 				'profile'			=> '',
 				'pm'				=> '',
@@ -1125,6 +1126,7 @@ while ($row = $db->sql_fetchrow($result))
 				'rank_title'		=> '',
 				'rank_image'		=> '',
 				'rank_image_src'	=> '',
+				'custom_title'		=> '',
 
 				'username'			=> $row['username'],
 				'user_colour'		=> $row['user_colour'],
@@ -1164,6 +1166,26 @@ while ($row = $db->sql_fetchrow($result))
 			{
 				$user_cache[$poster_id]['icq_status_img'] = '';
 				$user_cache[$poster_id]['icq'] = '';
+			}
+
+			if (!empty($row['user_custom_title']))
+			{
+				switch ($config['custom_title_mode'])
+				{
+					case CUSTOM_TITLE_MODE_INDEPENDENT:
+						$user_cache[$poster_id]['custom_title'] = $row['user_custom_title'];
+						break;
+					case CUSTOM_TITLE_MODE_REPLACE_RANK:
+						$user_cache[$poster_id]['rank_title'] = $row['user_custom_title'];
+						break;
+					case CUSTOM_TITLE_MODE_REPLACE_BOTH:
+						$user_cache[$poster_id]['rank_title'] = $row['user_custom_title'];
+						$user_cache[$poster_id]['rank_image'] = '';
+						$user_cache[$poster_id]['rank_image_src'] = '';
+						break;
+					default:
+						break;
+				}
 			}
 
 			if ($config['allow_birthdays'] && !empty($row['user_birthday']))
@@ -1498,6 +1520,7 @@ for ($i = 0, $end = sizeof($post_list); $i < $end; ++$i)
 		'RANK_TITLE'		=> $user_cache[$poster_id]['rank_title'],
 		'RANK_IMG'			=> $user_cache[$poster_id]['rank_image'],
 		'RANK_IMG_SRC'		=> $user_cache[$poster_id]['rank_image_src'],
+		'CUSTOM_TITLE'		=> $user_cache[$poster_id]['custom_title'],
 		'POSTER_JOINED'		=> $user_cache[$poster_id]['joined'],
 		'POSTER_POSTS'		=> $user_cache[$poster_id]['posts'],
 		'POSTER_FROM'		=> $user_cache[$poster_id]['from'],

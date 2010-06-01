@@ -708,6 +708,14 @@ $lang = array_merge($lang, array(
 	'YOU_NEW_PMS'		=> 'New private messages are waiting for you in your Inbox.',
 	'YOU_NO_NEW_PM'		=> 'No new private messages are waiting for you.',
 
+	'CUSTOM_TITLE'						=> 'Custom Title',
+	'CUSTOM_TITLE_EXPLAIN'				=> 'When used, this will %s. There is a %s character limit.',
+	'CUSTOM_TITLE_EXPLAIN_INDEPENDENT'	=> 'add an additional user title to your posts and profile',
+	'CUSTOM_TITLE_EXPLAIN_REPLACE_RANK'	=> 'replace your regular rank with this text. To reset your rank, simply leave this field blank',
+	'CUSTOM_TITLE_EXPLAIN_REPLACE_BOTH'	=> 'replace both your regular rank and the rank image with this text. To reset your rank, simply leave this field blank',
+	'TOO_SHORT_CUSTOM_TITLE'			=> 'The custom title you entered is too short.',
+	'TOO_LONG_CUSTOM_TITLE'				=> 'The custom title you entered is too long.',
+
 	'datetime'			=> array(
 		'TODAY'		=> 'Today',
 		'TOMORROW'	=> 'Tomorrow',

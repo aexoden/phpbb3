@@ -152,7 +152,7 @@ switch ($mode)
 		$db->sql_freeresult($result);
 
 		$sql = $db->sql_build_query('SELECT', array(
-			'SELECT'	=> 'u.user_id, u.group_id as default_group, u.username, u.username_clean, u.user_colour, u.user_rank, u.user_posts, u.user_allow_pm, g.group_id, g.group_name, g.group_colour, g.group_type, ug.user_id as ug_user_id',
+			'SELECT'	=> 'u.user_id, u.group_id as default_group, u.username, u.username_clean, u.user_colour, u.user_rank, u.user_custom_title, u.user_posts, u.user_allow_pm, g.group_id, g.group_name, g.group_colour, g.group_type, ug.user_id as ug_user_id',
 
 			'FROM'		=> array(
 				USERS_TABLE		=> 'u',
@@ -239,6 +239,23 @@ switch ($mode)
 
 			$rank_title = $rank_img = '';
 			get_user_rank($row['user_rank'], (($row['user_id'] == ANONYMOUS) ? false : $row['user_posts']), $rank_title, $rank_img, $rank_img_src);
+
+			if (!empty($row['user_custom_title']))
+			{
+				switch ($config['custom_title_mode'])
+				{
+					case CUSTOM_TITLE_MODE_REPLACE_RANK:
+						$rank_title = $row['user_custom_title'];
+						break;
+					case CUSTOM_TITLE_MODE_REPLACE_BOTH:
+						$rank_title = $row['user_custom_title'];
+						$rank_image = '';
+						$rank_image_src = '';
+						break;
+					default:
+						break;
+				}
+			}
 
 			$template->assign_block_vars($which_row, array(
 				'USER_ID'		=> $row['user_id'],
@@ -1607,6 +1624,27 @@ function show_profile($data, $user_notes_enabled = false, $warn_user_enabled = f
 	$rank_title = $rank_img = $rank_img_src = '';
 	get_user_rank($data['user_rank'], (($user_id == ANONYMOUS) ? false : $data['user_posts']), $rank_title, $rank_img, $rank_img_src);
 
+	$custom_title = '';
+	if (!empty($data['user_custom_title']))
+	{
+		switch ($config['custom_title_mode'])
+		{
+			case CUSTOM_TITLE_MODE_INDEPENDENT:
+				$custom_title = $data['user_custom_title'];
+				break;
+			case CUSTOM_TITLE_MODE_REPLACE_RANK:
+				$rank_title = $data['user_custom_title'];
+				break;
+			case CUSTOM_TITLE_MODE_REPLACE_BOTH:
+				$rank_title = $data['user_custom_title'];
+				$rank_image = '';
+				$rank_image_src = '';
+				break;
+			default:
+				break;
+		}
+	}
+
 	if (!empty($data['user_allow_viewemail']) || $auth->acl_get('a_user'))
 	{
 		$email = ($config['board_email_form'] && $config['email_enable']) ? append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=email&amp;u=' . $user_id) : (($config['board_hide_emails'] && !$auth->acl_get('a_user')) ? '' : 'mailto:' . $data['user_email']);
@@ -1663,6 +1701,7 @@ function show_profile($data, $user_notes_enabled = false, $warn_user_enabled = f
 	return array(
 		'AGE'			=> $age,
 		'RANK_TITLE'	=> $rank_title,
+		'CUSTOM_TITLE'	=> $custom_title,
 		'JOINED'		=> $user->format_date($data['user_regdate']),
 		'VISITED'		=> (empty($last_visit)) ? ' - ' : $user->format_date($last_visit),
 		'POSTS'			=> ($data['user_posts']) ? $data['user_posts'] : 0,

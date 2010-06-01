@@ -197,6 +197,11 @@ define('REFERER_VALIDATE_PATH', 2);
 define('CAPTCHA_MIN_CHARS', 4);
 define('CAPTCHA_MAX_CHARS', 7);
 
+// Custom Title MOD
+define('CUSTOM_TITLE_MODE_INDEPENDENT', 0);
+define('CUSTOM_TITLE_MODE_REPLACE_RANK', 1);
+define('CUSTOM_TITLE_MODE_REPLACE_BOTH', 2);
+
 // Additional constants
 define('VOTE_CONVERTED', 127);
 

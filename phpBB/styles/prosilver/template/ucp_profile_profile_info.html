@@ -46,6 +46,12 @@
 		<dt><label for="interests">{L_INTERESTS}:</label></dt>
 		<dd><textarea name="interests" id="interests" class="inputbox" rows="3" cols="30">{INTERESTS}</textarea></dd>
 	</dl>
+	<!-- IF S_CUSTOM_TITLE_ENABLED -->
+		<dl>
+			<dt><label for="custom_title">{L_CUSTOM_TITLE}:</label><br /><span>{L_CUSTOM_TITLE_EXPLAIN}</span></dt>
+			<dd><input type="text" name="custom_title" id="custom_title" maxlength="{CUSTOM_TITLE_MAXLENGTH}" value="{CUSTOM_TITLE}" class="inputbox" /></dd>
+		</dl>
+	<!-- ENDIF -->
 	<!-- IF S_BIRTHDAYS_ENABLED -->
 		<dl>
 			<dt><label for="bday_day">{L_BIRTHDAY}:</label><br /><span>{L_BIRTHDAY_EXPLAIN}</span></dt>

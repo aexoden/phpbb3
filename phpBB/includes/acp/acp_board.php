@@ -226,6 +226,19 @@ class acp_board
 				);
 			break;
 
+			case 'custom_title':
+				$display_vars = array(
+					'title'	=> 'ACP_CUSTOM_TITLE_SETTINGS',
+					'vars'	=> array(
+						'legend1'					=> 'GENERAL_SETTINGS',
+						'custom_title_mode'			=> array('lang' => 'CUSTOM_TITLE_MODE',			'validate' => 'int',	'type' => 'custom', 'method' => 'select_custom_title_mode', 'explain' => true),
+						'custom_title_days'			=> array('lang' => 'CUSTOM_TITLE_DAYS',			'validate' => 'int', 	'type' => 'text:5:4', 'explain' => false),
+						'custom_title_posts'		=> array('lang' => 'CUSTOM_TITLE_POSTS',		'validate' => 'int',	'type' => 'text:5:4', 'explain' => false),
+						'custom_title_maxlength'	=> array('lang'	=> 'CUSTOM_TITLE_MAXLENGTH',	'validate' => 'int', 	'type' => 'text:5:4', 'explain' => true),
+					)
+				);
+			break;
+
 			case 'registration':
 				$display_vars = array(
 					'title'	=> 'ACP_REGISTER_SETTINGS',
@@ -674,6 +687,16 @@ class acp_board
 				}
 			}
 		}
+	}
+
+	/**
+	* Custom Title MOD mode method
+	*/
+	function select_custom_title_mode($value, $key = '')
+	{
+		$radio_ary = array(0 => 'CUSTOM_TITLE_MODE_INDEPENDENT', 1 => 'CUSTOM_TITLE_MODE_REPLACE_RANK', 2 => 'CUSTOM_TITLE_MODE_REPLACE_BOTH');
+
+		return h_radio('config[custom_title_mode]', $radio_ary, $value, $key);
 	}
 
 	/**

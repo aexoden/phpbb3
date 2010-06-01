@@ -48,6 +48,12 @@
 	<td class="row1" width="35%"><b class="genmed">{L_INTERESTS}: </b></td>
 	<td class="row2"><textarea class="post" name="interests" rows="3" cols="30">{INTERESTS}</textarea></td>
 </tr>
+<!-- IF S_CUSTOM_TITLE_ENABLED -->
+<tr>
+	<td class="row1" width="35%"><b class="genmed">{L_CUSTOM_TITLE}:</b><br /><span class="gensmall">{L_CUSTOM_TITLE_EXPLAIN}</span></td>
+	<td class="row2"><input class="post" type="text" name="custom_title" size="30" maxlength="{CUSTOM_TITLE_MAXLENGTH}" value="{CUSTOM_TITLE}" /></td>
+</tr>
+<!-- ENDIF -->
 <!-- IF S_BIRTHDAYS_ENABLED -->
 	<tr> 
 		<td class="row1" width="35%"><b class="genmed">{L_BIRTHDAY}: </b><br /><span class="gensmall">{L_BIRTHDAY_EXPLAIN}</span></td>

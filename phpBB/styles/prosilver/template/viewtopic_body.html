@@ -178,7 +178,7 @@
 				<!-- IF not postrow.U_POST_AUTHOR --><strong>{postrow.POST_AUTHOR_FULL}</strong><!-- ELSE -->{postrow.POST_AUTHOR_FULL}<!-- ENDIF -->
 			</dt>
 
-			<!-- IF postrow.RANK_TITLE or postrow.RANK_IMG --><dd>{postrow.RANK_TITLE}<!-- IF postrow.RANK_TITLE and postrow.RANK_IMG --><br /><!-- ENDIF -->{postrow.RANK_IMG}</dd><!-- ENDIF -->
+			<!-- IF postrow.CUSTOM_TITLE or postrow.RANK_TITLE or postrow.RANK_IMG --><dd><strong>{postrow.CUSTOM_TITLE}</strong><!-- IF postrow.CUSTOM_TITLE and postrow.RANK_TITLE or postrow.CUSTOM_TITLE and postrow.RANK_IMG --><br /><!-- ENDIF -->{postrow.RANK_TITLE}<!-- IF postrow.RANK_TITLE and postrow.RANK_IMG --><br /><!-- ENDIF -->{postrow.RANK_IMG}</dd><!-- ENDIF -->
 
 		<dd>&nbsp;</dd>
 

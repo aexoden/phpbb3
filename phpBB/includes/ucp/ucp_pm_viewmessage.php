@@ -180,6 +180,7 @@ function view_message($id, $mode, $folder_id, $msg_id, $folder, $message_row)
 
 		'RANK_TITLE'		=> $user_info['rank_title'],
 		'RANK_IMG'			=> $user_info['rank_image'],
+		'CUSTOM_TITLE'		=> $user_info['custom_title'],
 		'AUTHOR_AVATAR'		=> (isset($user_info['avatar'])) ? $user_info['avatar'] : '',
 		'AUTHOR_JOINED'		=> $user->format_date($user_info['user_regdate']),
 		'AUTHOR_POSTS'		=> (int) $user_info['user_posts'],
@@ -308,6 +309,26 @@ function get_user_information($user_id, $user_row)
 	$user_row['avatar'] = ($user->optionget('viewavatars')) ? get_user_avatar($user_row['user_avatar'], $user_row['user_avatar_type'], $user_row['user_avatar_width'], $user_row['user_avatar_height']) : '';
 
 	get_user_rank($user_row['user_rank'], $user_row['user_posts'], $user_row['rank_title'], $user_row['rank_image'], $user_row['rank_image_src']);
+
+	if (!empty($user_row['user_custom_title']))
+	{
+		switch ($config['custom_title_mode'])
+		{
+			case CUSTOM_TITLE_MODE_INDEPENDENT:
+				$user_row['custom_title'] = $user_row['user_custom_title'];
+				break;
+			case CUSTOM_TITLE_MODE_REPLACE_RANK:
+				$user_row['rank_title'] = $user_row['user_custom_title'];
+				break;
+			case CUSTOM_TITLE_MODE_REPLACE_BOTH:
+				$user_row['rank_title'] = $user_row['user_custom_title'];
+				$user_row['rank_image'] = '';
+				$user_row['rank_image_src'] = '';
+				break;
+			default:
+				break;
+		}
+	}
 
 	if (!empty($user_row['user_allow_viewemail']) || $auth->acl_get('a_email'))
 	{

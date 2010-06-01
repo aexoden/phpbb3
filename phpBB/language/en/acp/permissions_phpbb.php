@@ -132,6 +132,8 @@ $lang = array_merge($lang, array(
 	'acl_u_hideonline'	=> array('lang' => 'Can hide online status', 'cat' => 'misc'),
 	'acl_u_viewonline'	=> array('lang' => 'Can view hidden online users', 'cat' => 'misc'),
 	'acl_u_search'		=> array('lang' => 'Can search board', 'cat' => 'misc'),
+	'acl_u_title_edit'	=> array('lang' => 'Can edit own custom title', 'cat' => 'profile'),
+	'acl_u_title_ignore_reqs'	=> array('lang'	=> 'Can ignore custom title registration or post requirements', 'cat' => 'profile'),
 ));
 
 // Forum Permissions

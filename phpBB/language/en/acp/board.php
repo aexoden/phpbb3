@@ -202,6 +202,21 @@ $lang = array_merge($lang, array(
 	'MAX_SIG_URLS_EXPLAIN'			=> 'Maximum number of links in user signatures. Set to 0 for unlimited links.',
 ));
 
+// Custom Title Settings
+$lang = array_merge($lang, array(
+	'ACP_CUSTOM_TITLE_SETTINGS_EXPLAIN'	=> 'Here you can set all default settings for custom titles.',
+
+	'CUSTOM_TITLE_MODE'					=> 'Rank Replacement Mode',
+	'CUSTOM_TITLE_MODE_EXPLAIN'			=> 'Here you can choose whether or not the rank and rank image are replaced if the user has set a custom title. If you choose \'No replacement\', it will instead appear as a separate title.',
+	'CUSTOM_TITLE_MODE_INDEPENDENT'		=> 'No replacement',
+	'CUSTOM_TITLE_MODE_REPLACE_RANK'	=> 'Replace rank only',
+	'CUSTOM_TITLE_MODE_REPLACE_BOTH'	=> 'Replace rank and rank image',
+	'CUSTOM_TITLE_DAYS'					=> 'Days of registration required',
+	'CUSTOM_TITLE_POSTS'				=> 'Posts required',
+	'CUSTOM_TITLE_MAXLENGTH'			=> 'Maximum length',
+	'CUSTOM_TITLE_MAXLENGTH_EXPLAIN'	=> 'This controls the maximum length a user may set his or her custom title to. Please enter a number from 0 to 255.',
+));
+
 // Registration Settings
 $lang = array_merge($lang, array(
 	'ACP_REGISTER_SETTINGS_EXPLAIN'		=> 'Here you are able to define registration and profile related settings.',
