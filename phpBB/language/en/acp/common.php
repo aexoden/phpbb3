@@ -75,7 +75,6 @@ $lang = array_merge($lang, array(
 	'ACP_COOKIE_SETTINGS'		=> 'Cookie settings',
 	'ACP_CRITICAL_LOGS'			=> 'Error log',
 	'ACP_CUSTOM_PROFILE_FIELDS'	=> 'Custom profile fields',
-	'ACP_CUSTOM_TITLE_SETTINGS'	=> 'Custom title settings',
 
 	'ACP_DATABASE'				=> 'Database management',
 	'ACP_DISALLOW'				=> 'Disallow',
@@ -492,7 +491,6 @@ $lang = array_merge($lang, array(
 	'LOG_CONFIG_AUTH'			=> '<strong>Altered authentication settings</strong>',
 	'LOG_CONFIG_AVATAR'			=> '<strong>Altered avatar settings</strong>',
 	'LOG_CONFIG_COOKIE'			=> '<strong>Altered cookie settings</strong>',
-	'LOG_CONFIG_CUSTOM_TITLE'		=> '<strong>Altered custom title settings</strong>',
 	'LOG_CONFIG_EMAIL'			=> '<strong>Altered e-mail settings</strong>',
 	'LOG_CONFIG_FEATURES'		=> '<strong>Altered board features</strong>',
 	'LOG_CONFIG_LOAD'			=> '<strong>Altered load settings</strong>',
