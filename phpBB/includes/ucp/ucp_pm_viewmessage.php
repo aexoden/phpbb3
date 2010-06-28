@@ -310,6 +310,8 @@ function get_user_information($user_id, $user_row)
 
 	get_user_rank($user_row['user_rank'], $user_row['user_posts'], $user_row['rank_title'], $user_row['rank_image'], $user_row['rank_image_src']);
 
+	$user_row['custom_title'] = '';
+
 	if (!empty($user_row['user_custom_title']))
 	{
 		switch ($config['custom_title_mode'])
